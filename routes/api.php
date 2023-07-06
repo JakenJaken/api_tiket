@@ -13,9 +13,10 @@ Route::controller(AuthController::class)->group(function () {
 
 // Protected routes (require authentication)
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::apiResource('/students', StudentController::class);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::resource('students', StudentController::class)->except(['create', 'edit']);
+    Route::put('students/{id}/picture', [StudentController::class, 'updatePicture']);
     Route::apiResource('/tiket', TiketController::class);
     Route::apiResource('/event', EventController::class);
 });
