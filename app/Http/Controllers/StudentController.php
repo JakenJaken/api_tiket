@@ -45,7 +45,7 @@ class StudentController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         try {
             $request->validate([
@@ -54,7 +54,7 @@ class StudentController extends Controller
                 'profile_picture' => 'nullable|image|max:2048',
             ]);
 
-            $student = Student::findOrFail($id);
+            $student = Student::findOrFail($request->input('id'));
 
             if ($request->hasFile('profile_picture')) {
                 // Delete the previous image if it exists

@@ -15,8 +15,8 @@ Route::controller(AuthController::class)->group(function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::resource('students', StudentController::class)->except(['create', 'edit']);
-    Route::put('students/{id}/picture', [StudentController::class, 'updatePicture']);
+    Route::resource('students', StudentController::class)->except(['create', 'edit', 'update']);
+    Route::post('students/update', [StudentController::class, 'update']);
     Route::apiResource('/tiket', TiketController::class);
     Route::apiResource('/event', EventController::class);
 });
